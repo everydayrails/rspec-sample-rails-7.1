@@ -11,3 +11,7 @@
 ["Breakfast", "Lunch", "Dinner", "Dessert", "Snack"].each do |name|
   Category.find_or_create_by!(name: name)
 end
+
+User.find_or_create_by!(email: "test@example.com") do |user|
+  user.password = "password"
+end
