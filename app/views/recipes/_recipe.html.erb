@@ -1,4 +1,10 @@
 <div id="<%= dom_id recipe %>">
+  <% if recipe.photo.attached? %>
+    <p>
+      <%= image_tag recipe.photo %>
+    </p>
+  <% end %>
+
   <p>
     <strong>Name:</strong>
     <%= recipe.name %>
