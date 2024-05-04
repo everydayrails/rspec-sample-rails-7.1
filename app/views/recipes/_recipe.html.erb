@@ -32,10 +32,6 @@
 
 </div>
 
-<% if signed_in? %>
-  <% if favorite = current_user.favorites.find_by(recipe: recipe) %>
-    <%= button_to "un-favorite", [recipe, favorite], method: :delete %>
-  <% else %>
-    <%= button_to "favorite", [recipe, recipe.favorites.build] %>
-  <% end %>
-<% end %>
+<div id="favorite_button">
+  <%= render "favorite_button", recipe: recipe %>
+</div>

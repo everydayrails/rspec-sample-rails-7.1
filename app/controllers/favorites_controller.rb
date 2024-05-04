@@ -8,11 +8,11 @@ class FavoritesController < ApplicationController
 
     respond_to do |format|
       if @favorite.save
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("favorite_button", partial: "recipes/destroy_favorite_button", locals: { recipe: @recipe, favorite: @favorite }) }
         format.html { redirect_to @recipe, notice: "Favorite was successfully created." }
-        format.json { render :show, status: :created, location: @favorite }
       else
+        format.turbo_stream { render turbo_stream: turbo_stream.replace("favorite_button", partial: "recipes/new_favorite_button", locals: { recipe: @recipe, favorite: @favorite }) }
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @favorite.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -23,19 +23,20 @@ class FavoritesController < ApplicationController
     favorite.destroy!
 
     respond_to do |format|
-      format.html { redirect_to recipes_path, notice: "Favorite was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream { render turbo_stream: turbo_stream.replace("favorite_button", partial: "recipes/new_favorite_button", locals: { recipe: @recipe, favorite: @favorite }) }
+      format.html { redirect_to @recipe, notice: "Favorite was successfully destroyed." }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_recipe
-      @recipe = Recipe.find(params[:recipe_id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def favorite_params
-      params.require(:favorite).permit(:recipe_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_recipe
+    @recipe = Recipe.find(params[:recipe_id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def favorite_params
+    params.require(:favorite).permit(:recipe_id)
+  end
 end
