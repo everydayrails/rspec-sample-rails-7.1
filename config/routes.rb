@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   resources :recipes do
     resources :favorites, only: %i[ create destroy ]
+    resources :comments, only: %i[ create ]
   end
 
   resource :profile

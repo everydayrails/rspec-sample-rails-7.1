@@ -7,4 +7,11 @@
   <%= link_to "Back to recipes", recipes_path %>
 
   <%= button_to "Destroy this recipe", @recipe, method: :delete %>
+
+  <% if @recipe.comments.any? %>
+    <h2>Comments</h2>
+    <%= render @recipe.comments %>
+  <% end %>
+
+  <%= render "comments/form", comment: @recipe.comments.build %>
 </div>
