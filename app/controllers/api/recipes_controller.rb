@@ -1,4 +1,6 @@
 class Api::RecipesController < ApplicationController
+  before_action :require_login_via_token
+
   def index
     @recipes = Recipe.all
 
