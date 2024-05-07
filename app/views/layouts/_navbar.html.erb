@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <span class="navbar-brand">TasteDrivenDishes</span>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <%= link_to "All recipes", root_path, class: "nav-link" %>
+        </li>
+        <% if signed_in? %>
+          <li class="nav-item">
+            <%= link_to "My recipes", profile_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "My favorites", favorites_profile_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign up", sign_up_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign in", sign_in_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</nav>
