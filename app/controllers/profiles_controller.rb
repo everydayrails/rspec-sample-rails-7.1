@@ -3,6 +3,9 @@ class ProfilesController < ApplicationController
 
   def show
     @recipes = current_user.recipes
-    render "recipes/index"
+  end
+
+  def favorites
+    @recipes = current_user.favorites
   end
 end

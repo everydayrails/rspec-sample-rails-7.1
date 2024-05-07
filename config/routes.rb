@@ -4,7 +4,9 @@ Rails.application.routes.draw do
     resources :comments, only: %i[ create ]
   end
 
-  resource :profile
+  resource :profile do
+    get :favorites
+  end
 
   namespace :api do
     resources :recipes, only: %i[ index show ]
