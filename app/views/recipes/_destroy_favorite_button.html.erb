@@ -1,7 +1,7 @@
 <% if signed_in? %>
   <% if favorite = current_user.favorites.find_by(recipe: recipe) %>
-    <%= button_to "un-favorite", [recipe, favorite], method: :delete, data: { turbo_action: "replace" } %>
+    <%= button_to "un-favorite", [recipe, favorite], method: :delete, data: { turbo_action: "replace" }, class: "btn btn-light" %>
   <% else %>
-    <%= button_to "favorite", [recipe, recipe.favorites.build], data: { turbo_action: "replace" } %>
+    <%= button_to "favorite", [recipe, recipe.favorites.build], data: { turbo_action: "replace" }, class: "btn btn-light" %>
   <% end %>
 <% end %>

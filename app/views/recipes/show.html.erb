@@ -1,10 +1,48 @@
 <p style="color: green"><%= notice %></p>
 
-<%= render @recipe %>
+<div id="<%= dom_id @recipe %>">
+  <% if @recipe.photo.attached? %>
+    <p>
+      <%= image_tag @recipe.photo %>
+    </p>
+  <% end %>
 
-<div>
-  <%= link_to "Edit this recipe", edit_recipe_path(@recipe) %> |
-  <%= link_to "Back to recipes", recipes_path %>
+  <h1><%= @recipe.name %></h1>
+
+  <p>
+    <strong>Category:</strong>
+    <%= @recipe.category.name %>
+  </p>
+
+  <%= simple_format @recipe.description %>
+
+  <div class="d-inline-flex gap-1 mb-3">
+    <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-primary" %>
+
+    <%= button_to "Delete", @recipe, method: :delete, class: "btn btn-light" %>
+
+    <div id="favorite_button">
+      <%= render "favorite_button", recipe: @recipe %>
+    </div>
+  </div>
+
+  <h2>Ingredients</h2>
+
+  <%=
+    Commonmarker.to_html(@recipe.description, options:{
+      parse: { smart: true },
+      render: { hardbreaks: false}
+    }).html_safe
+  %>
+
+  <h2>Instructions</h2>
+
+  <%=
+    Commonmarker.to_html(@recipe.instructions, options:{
+      parse: { smart: true },
+      render: { hardbreaks: false}
+    }).html_safe
+  %>
 
   <h2>Comments</h2>
 
