@@ -5,33 +5,34 @@
     </p>
   <% end %>
 
-  <p>
-    <strong>Name:</strong>
-    <%= recipe.name %>
-  </p>
+  <h1><%= recipe.name %></h1>
 
   <p>
     <strong>Category:</strong>
     <%= recipe.category_id %>
   </p>
 
-  <p>
-    <strong>Description:</strong>
-    <%= recipe.description %>
-  </p>
+  <div id="favorite_button">
+    <%= render "favorite_button", recipe: recipe %>
+  </div>
 
-  <p>
-    <strong>Ingredients:</strong>
-    <%= recipe.ingredients %>
-  </p>
+  <%= simple_format recipe.description %>
 
-  <p>
-    <strong>Instructions:</strong>
-    <%= recipe.instructions %>
-  </p>
+  <h2>Ingredients</h2>
 
-</div>
+  <%=
+    Commonmarker.to_html(recipe.description, options:{
+      parse: { smart: true },
+      render: { hardbreaks: false}
+    }).html_safe
+  %>
 
-<div id="favorite_button">
-  <%= render "favorite_button", recipe: recipe %>
+  <h2>Instructions</h2>
+
+  <%=
+    Commonmarker.to_html(recipe.instructions, options:{
+      parse: { smart: true },
+      render: { hardbreaks: false}
+    }).html_safe
+  %>
 </div>

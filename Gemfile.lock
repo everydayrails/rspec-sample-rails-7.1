@@ -104,6 +104,12 @@ GEM
       bcrypt (>= 3.1.1)
       email_validator (~> 2.0)
       railties (>= 5.0)
+    commonmarker (1.1.2)
+      rb_sys (~> 0.9)
+    commonmarker (1.1.2-aarch64-linux)
+    commonmarker (1.1.2-arm64-darwin)
+    commonmarker (1.1.2-x86_64-darwin)
+    commonmarker (1.1.2-x86_64-linux)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -214,6 +220,7 @@ GEM
       thor (~> 1.0, >= 1.2.2)
       zeitwerk (~> 2.6)
     rake (13.2.1)
+    rb_sys (0.9.97)
     rdoc (6.6.3.1)
       psych (>= 4.0.0)
     redis (5.2.0)
@@ -280,6 +287,7 @@ DEPENDENCIES
   bootsnap
   capybara
   clearance (~> 2.7)
+  commonmarker (~> 1.1)
   debug
   importmap-rails
   jbuilder

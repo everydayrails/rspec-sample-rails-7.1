@@ -67,3 +67,5 @@ group :test do
 end
 
 gem "clearance", "~> 2.7"
+
+gem "commonmarker", "~> 1.1"
