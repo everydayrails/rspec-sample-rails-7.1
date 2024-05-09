@@ -1,6 +1,6 @@
 <% if signed_in? %>
   <% if favorite = current_user.favorites.find_by(recipe: recipe) %>
-    <%= render "delete_favorite_button", recipe: recipe %>
+    <%= render "destroy_favorite_button", recipe: recipe %>
   <% else %>
     <%= render "new_favorite_button", recipe: recipe %>
   <% end %>
