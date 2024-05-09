@@ -1,61 +1,65 @@
 <p style="color: green"><%= notice %></p>
 
-<div id="<%= dom_id @recipe %>">
-  <% if @recipe.photo.attached? %>
-    <p>
-      <%= image_tag @recipe.photo %>
-    </p>
-  <% end %>
-
-  <h1><%= @recipe.name %></h1>
-
-  <p>
-    <strong>Category:</strong>
-    <%= @recipe.category.name %>
-  </p>
-
-  <p>
-    Shared by <%= @recipe.user.nickname %> (<%= @recipe.created_at %>)
-  </p>
-
-  <%= simple_format @recipe.description %>
-
-  <div class="d-inline-flex gap-1 mb-3">
-    <% if @recipe.created_by?(current_user) %>
-      <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-primary" %>
-      <%= button_to "Delete", @recipe, method: :delete, class: "btn btn-light" %>
+<div class="row">
+  <div id="<%= dom_id @recipe %>" class="col">
+    <% if @recipe.photo.attached? %>
+      <p>
+        <%= image_tag @recipe.photo, class: "img-fluid" %>
+      </p>
     <% end %>
 
-    <div id="favorite_button">
-      <%= render "favorite_button", recipe: @recipe %>
+    <h1><%= @recipe.name %></h1>
+
+    <p>
+      <strong>Category:</strong>
+      <%= @recipe.category.name %>
+    </p>
+
+    <%= simple_format @recipe.description %>
+
+    <div class="d-inline-flex gap-1 mb-3">
+      <% if @recipe.created_by?(current_user) %>
+        <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-primary" %>
+        <%= button_to "Delete", @recipe, method: :delete, class: "btn btn-light" %>
+      <% end %>
+
+      <div id="favorite_button">
+        <%= render "favorite_button", recipe: @recipe %>
+      </div>
     </div>
+
+    <h2>Ingredients</h2>
+
+    <%=
+      Commonmarker.to_html(@recipe.description, options:{
+        parse: { smart: true },
+        render: { hardbreaks: false}
+      }).html_safe
+    %>
+
+    <h2>Instructions</h2>
+
+    <%=
+      Commonmarker.to_html(@recipe.instructions, options:{
+        parse: { smart: true },
+        render: { hardbreaks: false}
+      }).html_safe
+    %>
+
+    <p>
+      Shared by <%= @recipe.user.nickname %> (<%= @recipe.created_at %>)
+    </p>
   </div>
 
-  <h2>Ingredients</h2>
+  <div class="col-sm-auto" id="comments">
+    <h2>Comments</h2>
 
-  <%=
-    Commonmarker.to_html(@recipe.description, options:{
-      parse: { smart: true },
-      render: { hardbreaks: false}
-    }).html_safe
-  %>
+    <% if @recipe.comments.any? %>
+      <%= render @recipe.comments %>
+    <% end %>
 
-  <h2>Instructions</h2>
-
-  <%=
-    Commonmarker.to_html(@recipe.instructions, options:{
-      parse: { smart: true },
-      render: { hardbreaks: false}
-    }).html_safe
-  %>
-
-  <h2>Comments</h2>
-
-  <% if @recipe.comments.any? %>
-    <%= render @recipe.comments %>
-  <% end %>
-
-  <% if signed_in? %>
-    <%= render "comments/form", comment: @recipe.comments.build %>
-  <% end %>
+    <% if signed_in? %>
+      <%= render "comments/form", comment: @recipe.comments.build %>
+    <% end %>
+  </div>
 </div>
