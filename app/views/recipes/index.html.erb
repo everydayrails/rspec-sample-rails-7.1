@@ -1,6 +1,8 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Recipes</h1>
+<% unless signed_in? %>
+  <%= render "layouts/hero" %>
+<% end %>
 
 <div id="recipes">
   <% @recipes.each do |recipe| %>
