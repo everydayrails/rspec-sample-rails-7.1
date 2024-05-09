@@ -55,5 +55,7 @@
     <%= render @recipe.comments %>
   <% end %>
 
-  <%= render "comments/form", comment: @recipe.comments.build %>
+  <% if signed_in? %>
+    <%= render "comments/form", comment: @recipe.comments.build %>
+  <% end %>
 </div>
