@@ -19,8 +19,15 @@
           <li class="nav-item">
             <%= link_to "New recipe", new_recipe_path, class: "nav-link" %>
           </li>
+        <% end %>
+      </ul>
+      <% if signed_in? %>
+        <span class="navbar-text"><strong><%= current_user.nickname %></strong></span>
+      <% end %>
+      <ul class="navbar-nav navbar-right">
+        <% if signed_in? %>
           <li class="nav-item">
-            <%= button_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
+            <%= link_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
           </li>
         <% else %>
           <li class="nav-item">
