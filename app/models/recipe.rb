@@ -8,4 +8,8 @@ class Recipe < ApplicationRecord
 
   validates :name, presence: true
   validates :category, presence: true
+
+  def created_by?(user)
+    self.user == user
+  end
 end
