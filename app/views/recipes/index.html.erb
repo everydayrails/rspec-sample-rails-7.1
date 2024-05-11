@@ -4,11 +4,4 @@
   <%= render "layouts/hero" %>
 <% end %>
 
-<div id="recipes">
-  <% @recipes.each do |recipe| %>
-    <%= render recipe %>
-    <p>
-      <%= link_to "Show this recipe", recipe %>
-    </p>
-  <% end %>
-</div>
+<%= render "recipes", recipes: @recipes %>

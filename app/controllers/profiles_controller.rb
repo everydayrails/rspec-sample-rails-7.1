@@ -6,6 +6,6 @@ class ProfilesController < ApplicationController
   end
 
   def favorites
-    @recipes = current_user.favorites
+    @recipes = current_user.favorite_recipes
   end
 end

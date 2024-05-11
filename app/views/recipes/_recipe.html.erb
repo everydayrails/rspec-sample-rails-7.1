@@ -1,38 +1,11 @@
-<div id="<%= dom_id recipe %>">
-  <% if recipe.photo.attached? %>
-    <p>
-      <%= image_tag recipe.photo %>
-    </p>
-  <% end %>
-
-  <h1><%= recipe.name %></h1>
-
-  <p>
-    <strong>Category:</strong>
-    <%= recipe.category.name %>
-  </p>
-
-  <div id="favorite_button">
-    <%= render "favorite_button", recipe: recipe %>
+<div class="col">
+  <div class="card" id="<%= dom_id recipe %>">
+    <% if recipe.photo.attached? %>
+      <%= image_tag recipe.photo, class: "card-img-top" %>
+    <% end %>
+    <div class="card-body">
+      <h5 class="card-title"><%= link_to recipe.name, recipe %></h5>
+      <p class="card-text"><%= recipe.description %></p>
+    </div>
   </div>
-
-  <%= simple_format recipe.description %>
-
-  <h2>Ingredients</h2>
-
-  <%=
-    Commonmarker.to_html(recipe.description, options:{
-      parse: { smart: true },
-      render: { hardbreaks: false}
-    }).html_safe
-  %>
-
-  <h2>Instructions</h2>
-
-  <%=
-    Commonmarker.to_html(recipe.instructions, options:{
-      parse: { smart: true },
-      render: { hardbreaks: false}
-    }).html_safe
-  %>
 </div>
