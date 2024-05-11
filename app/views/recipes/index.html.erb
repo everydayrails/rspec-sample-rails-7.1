@@ -1,7 +1,7 @@
 <p style="color: green"><%= notice %></p>
 
 <% unless signed_in? %>
-  <%= render "layouts/hero" %>
+  <%= render "application/hero" %>
 <% end %>
 
 <%= render "recipes", recipes: @recipes %>
