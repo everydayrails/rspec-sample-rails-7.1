@@ -9,15 +9,13 @@ class User < ApplicationRecord
   validates :nickname, presence: true, uniqueness: true
   validates :api_token, presence: true, uniqueness: true
 
-  after_create :set_api_token
+  before_validation :set_api_token, on: :create
 
   private
 
   def set_api_token
     begin
       self.api_token = SecureRandom.uuid
-    end while self.class.exists?(api_token: api_token)
-
-    save
+    end while self.class.find_by(api_token: api_token).present?
   end
 end
