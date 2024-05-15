@@ -1,4 +1,7 @@
 <div id="<%= dom_id comment %>" class="mb-3">
-  <h3 class="fs-5"><%= comment.user.nickname %> (<%= comment.created_at %>)</h3>
+  <h3 class="fs-5">
+    <%= render "application/avatar", user: comment.user %>
+    <%= comment.user.nickname %> (<%= comment.created_at %>)
+  </h3>
   <%= simple_format comment.comment %>
 </div>

@@ -47,7 +47,9 @@
     %>
 
     <p>
-      Shared by <%= @recipe.user.nickname %> (<%= @recipe.created_at %>)
+      Shared by
+      <%= render "application/avatar", user: @recipe.user %>
+      <%= @recipe.user.nickname %> (<%= @recipe.created_at %>)
     </p>
   </div>
 
