@@ -22,7 +22,10 @@
         <% end %>
       </ul>
       <% if signed_in? %>
-        <span class="navbar-text"><strong><%= current_user.nickname %></strong></span>
+        <span class="navbar-text">
+          <%= image_tag current_user.avatar, style: "height: 25px;" if current_user.avatar.attached? %>
+          <strong><%= current_user.nickname %></strong>
+        </span>
       <% end %>
       <ul class="navbar-nav navbar-right">
         <% if signed_in? %>
