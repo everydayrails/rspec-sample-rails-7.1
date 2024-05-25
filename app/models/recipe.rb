@@ -6,7 +6,7 @@ class Recipe < ApplicationRecord
 
   has_one_attached :photo
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :category, presence: true
 
   def created_by?(user)
