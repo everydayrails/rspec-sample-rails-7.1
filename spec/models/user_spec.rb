@@ -19,8 +19,28 @@ RSpec.describe User, type: :model do
     expect(user.errors[:nickname]).to include("can't be blank")
   end
 
-  it "requires a unique nickname"
-  it "requires an email"
+  it "requires a unique nickname" do
+    User.create(
+      nickname: "test",
+      email: "test1@example.com",
+      password: "password"
+    )
+
+    user = User.new(
+      nickname: "test"
+    )
+
+    expect(user).to be_invalid
+    expect(user.errors[:nickname]).to include("has already been taken")
+  end
+
+  it "requires an email" do
+    user = User.new(email: nil)
+
+    expect(user).to be_invalid
+    expect(user.errors[:email]).to include("can't be blank")
+  end
+
   it "requires a unique email"
   it "requires a password"
   it "requires an API token"
