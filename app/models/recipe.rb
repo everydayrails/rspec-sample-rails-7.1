@@ -9,6 +9,10 @@ class Recipe < ApplicationRecord
   validates :name, presence: true, uniqueness: { scope: :user_id }
   validates :category, presence: true
 
+  scope :by_word_in_name, ->(query) {
+    where("name LIKE ?", "%#{query}%") if query.present?
+  }
+
   def created_by?(user)
     self.user == user
   end
