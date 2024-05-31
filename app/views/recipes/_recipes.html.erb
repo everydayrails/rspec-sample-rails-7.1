@@ -1,5 +1,9 @@
 <div id="recipes" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
-  <% recipes.each do |recipe| %>
-    <%= render "recipes/recipe", recipe: recipe %>
+  <% if recipes.any? %>
+    <% recipes.each do |recipe| %>
+      <%= render "recipes/recipe", recipe: recipe %>
+    <% end %>
+  <% else %>
+    <h1>No recipes found</h1>
   <% end %>
 </div>
