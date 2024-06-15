@@ -50,4 +50,53 @@ RSpec.describe Recipe, type: :model do
 
     expect(second_recipe).to be_valid
   end
+
+  it "finds recipes that contain the search term in their name" do
+    user = User.create(
+      nickname: "test-user",
+      email: "test-user@example.com",
+      password: "password"
+    )
+
+    category = Category.create(name: "Test Category")
+
+    first_recipe = user.recipes.create(
+      name: "Pepperoni Pizza",
+      category: category
+    )
+
+    second_recipe = user.recipes.create(
+      name: "Cheese Pizza",
+      category: category
+    )
+
+    results = Recipe.by_word_in_name("pepperoni")
+
+    expect(results).to include(first_recipe)
+    expect(results).to_not include(second_recipe)
+  end
+
+  it "returns an empty collection when no recipes matching the search term are found" do
+    user = User.create(
+      nickname: "test-user",
+      email: "test-user@example.com",
+      password: "password"
+    )
+
+    category = Category.create(name: "Test Category")
+
+    first_recipe = user.recipes.create(
+      name: "Pepperoni Pizza",
+      category: category
+    )
+
+    second_recipe = user.recipes.create(
+      name: "Cheese Pizza",
+      category: category
+    )
+
+    results = Recipe.by_word_in_name("veggie")
+
+    expect(results).to be_empty
+  end
 end
