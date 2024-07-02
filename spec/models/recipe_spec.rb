@@ -1,21 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe Recipe, type: :model do
-  it "does not allow duplicate recipe names per user" do
-    user = User.create(
+  before do
+    @user = User.create(
       nickname: "test-user",
       email:      "test-user@example.com",
       password:   "password"
     )
 
-    category = Category.create(name: "Test Category")
+    @category = Category.create(name: "Test Category")
+  end
 
-    user.recipes.create(
+  it "does not allow duplicate recipe names per user" do
+    @user.recipes.create(
       name: "Test Recipe",
-      category: category
+      category: @category
     )
 
-    second_recipe = user.recipes.build(
+    second_recipe = @user.recipes.build(
       name: "Test Recipe",
     )
 
@@ -23,80 +25,54 @@ RSpec.describe Recipe, type: :model do
     expect(second_recipe.errors[:name]).to include("has already been taken")
   end
 
-  it "allows two users to share a project name" do
-    user = User.create(
-      nickname: "test-user",
-      email:      "test-user@example.com",
-      password:   "password"
-    )
-
+  it "allows two users to share a recipe name" do
     other_user = User.create(
       nickname: "another-test-user",
       email:      "another-test-user@example.com",
       password:   "password"
     )
 
-    category = Category.create(name: "Test Category")
-
-    user.recipes.create(
+    @user.recipes.create(
       name: "Test Recipe",
-      category: category
+      category: @category
     )
 
     second_recipe = other_user.recipes.build(
       name: "Test Recipe",
-      category: category
+      category: @category
     )
 
     expect(second_recipe).to be_valid
   end
 
-  it "finds recipes that contain the search term in their name" do
-    user = User.create(
-      nickname: "test-user",
-      email: "test-user@example.com",
-      password: "password"
-    )
+  describe "scope by_word_in_name" do
+    before do
+      @first_recipe = @user.recipes.create(
+        name: "Pepperoni Pizza",
+        category: @category
+      )
 
-    category = Category.create(name: "Test Category")
+      @second_recipe = @user.recipes.create(
+        name: "Cheese Pizza",
+        category: @category
+      )
+    end
 
-    first_recipe = user.recipes.create(
-      name: "Pepperoni Pizza",
-      category: category
-    )
+    context "when a match is found" do
+      it "returns matching recipes" do
+        results = Recipe.by_word_in_name("pepperoni")
 
-    second_recipe = user.recipes.create(
-      name: "Cheese Pizza",
-      category: category
-    )
+        expect(results).to include(@first_recipe)
+        expect(results).to_not include(@second_recipe)
+      end
+    end
 
-    results = Recipe.by_word_in_name("pepperoni")
+    context "when no match is found" do
+      it "returns an empty collection" do
+        results = Recipe.by_word_in_name("veggie")
 
-    expect(results).to include(first_recipe)
-    expect(results).to_not include(second_recipe)
-  end
-
-  it "returns an empty collection when no recipes matching the search term are found" do
-    user = User.create(
-      nickname: "test-user",
-      email: "test-user@example.com",
-      password: "password"
-    )
-
-    category = Category.create(name: "Test Category")
-
-    first_recipe = user.recipes.create(
-      name: "Pepperoni Pizza",
-      category: category
-    )
-
-    second_recipe = user.recipes.create(
-      name: "Cheese Pizza",
-      category: category
-    )
-
-    results = Recipe.by_word_in_name("veggie")
-
-    expect(results).to be_empty
+        expect(results).to be_empty
+      end
+    end
   end
 end
