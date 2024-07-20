@@ -1,24 +1,8 @@
-# README
+# Everyday Rails Testing with RSpec sample code (Rails 7.1 edition, 2024)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Sample code for [Everyday Rails Testing with RSpec], Rails 7.1 edition.
 
-Things you may want to cover:
+- Download code from [book resource page]
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+[Everyday Rails Testing with RSpec]:https://leanpub.com/everydayrailsrspec
+[book resource page]:https://everydayrails.com/rspecbook/
