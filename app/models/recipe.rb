@@ -16,4 +16,12 @@ class Recipe < ApplicationRecord
   def created_by?(user)
     self.user == user
   end
+
+  def photo_url
+    if photo.attached?
+      photo
+    else
+      "recipe-placeholder.png"
+    end
+  end
 end
