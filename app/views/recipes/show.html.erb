@@ -27,7 +27,7 @@
     <h2>Ingredients</h2>
 
     <%=
-      Commonmarker.to_html(@recipe.description, options:{
+      Commonmarker.to_html(@recipe.ingredients, options:{
         parse: { smart: true },
         render: { hardbreaks: false}
       }).html_safe
