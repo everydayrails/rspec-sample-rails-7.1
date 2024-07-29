@@ -17,7 +17,7 @@ aaron = User.find_or_create_by!(email: "aaron@example.com") do |user|
   user.password = "password"
 end
 
-aaron.recipes.find_or_create_by!(name: "Grilled turkey tenderloin") do |recipe|
+turkey_tenderloin = aaron.recipes.find_or_create_by!(name: "Grilled turkey tenderloin") do |recipe|
   recipe.category = Category.find_by(name: "Entree")
   recipe.description = "Who says turkey is just for Thanksgiving? This recipe is perfect year-round."
   recipe.ingredients = <<~INGREDIENTS
@@ -49,6 +49,32 @@ aaron.recipes.find_or_create_by!(name: "Grilled turkey tenderloin") do |recipe|
     To serve, slice each tenderloin crossways.
   INSTRUCTIONS
 end
+
+turkey_tenderloin.photo.attach(io: File.open(Rails.root.join("sample-data/turkey-tenderloin.jpg")), filename: "turkey-tenderloin.jpg")
+
+instant_pot_fritata = aaron.recipes.find_or_create_by!(name: "Instant Pot fritata") do |recipe|
+  recipe.category = Category.find_by(name: "Entree")
+  recipe.description = "A great, make-ahead breakfast or brunch option for busy people! Easy to modify for your dietary tastes."
+  recipe.ingredients = <<~INGREDIENTS
+    - 8 eggs
+    - 1/2 cup milk
+    - Salt and pepper just a sprinkle
+    - 1/2 diced onion
+    - 1/2 diced bell pepper
+    - 1/3 cup shredded sharp cheddar cheese
+    - 1 cup diced ham
+    - (Any other toppings you like)
+    - 1 cup water for your instant pot
+  INGREDIENTS
+  recipe.instructions = <<~INSTRUCTIONS
+    1. Whisk the eggs in a large bowl then add the milk, salt pepper, onion, bell pepper, cheese, and ham.
+    1. Spray your 7 inch instant pot pan with nonstick spray, then pour the egg mixture into it cover tightly with aluminum foil.
+    1. Add the trivet and the water to your instant pot then the pan with the egg mixture on top of the trivet.
+    1. Place the lid on, set your valve to sealing pressure cook on high pressure for 35 minutes with a 10 minute natural release.
+  INSTRUCTIONS
+end
+
+instant_pot_fritata.photo.attach(io: File.open(Rails.root.join("sample-data/fritata.jpg")), filename: "fritata.jpg")
 
 gabi = User.find_or_create_by!(email: "gabi@example.com") do |user|
   user.nickname = "gabi"
@@ -283,4 +309,14 @@ john.recipes.find_or_create_by!(name: "Homemade bacon") do |recipe|
 
     JP Notes: I liked making it with skin on pork belly if you can find it. Don't cut the pork belly into too small of pieces, it tends to get too salty if you do. Go for like 2" thick strips or I like to do like 4"x4" pieces.
     INSTRUCTIONS
+end
+
+# Comments
+
+User.all.each do |user|
+  recipes = Recipe.order("RANDOM()").limit(rand(1..Recipe.count))
+
+  recipes.each do |recipe|
+    user.comments.create!(recipe: recipe, comment: "This looks delicious!")
+  end
 end
