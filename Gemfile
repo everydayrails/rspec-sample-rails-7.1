@@ -71,3 +71,5 @@ gem "clearance", "~> 2.7"
 gem "commonmarker", "~> 1.1"
 
 gem "rspec-rails", "~> 6.1.2", :groups => [:development, :test]
+
+gem "factory_bot_rails", "~> 6.4.3", :groups => [:development, :test]

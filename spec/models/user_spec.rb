@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
+  it "has a valid factory" do
+    expect(FactoryBot.build(:user)).to be_valid
+  end
+
   it "is valid with an email, password, nickname, and API token" do
     user = User.new(
       email: "test@example.com",
@@ -13,29 +17,22 @@ RSpec.describe User, type: :model do
   end
 
   it "requires a nickname" do
-    user = User.new(nickname: nil)
+    user = FactoryBot.build(:user, nickname: nil)
 
     expect(user).to be_invalid
     expect(user.errors[:nickname]).to include("can't be blank")
   end
 
   it "requires a unique nickname" do
-    User.create(
-      nickname: "test",
-      email: "test1@example.com",
-      password: "password"
-    )
-
-    user = User.new(
-      nickname: "test"
-    )
+    FactoryBot.create(:user, nickname: "test")
+    user = FactoryBot.build(:user, nickname: "test")
 
     expect(user).to be_invalid
     expect(user.errors[:nickname]).to include("has already been taken")
   end
 
   it "requires an email" do
-    user = User.new(email: nil)
+    user = FactoryBot.build(:user, email: nil)
 
     expect(user).to be_invalid
     expect(user.errors[:email]).to include("can't be blank")
