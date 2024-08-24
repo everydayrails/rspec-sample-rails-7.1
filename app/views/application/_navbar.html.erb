@@ -36,7 +36,7 @@
       <ul class="navbar-nav navbar-right">
         <% if signed_in? %>
           <li class="nav-item">
-            <%= link_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
+            <%= button_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
           </li>
         <% else %>
           <li class="nav-item">
