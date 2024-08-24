@@ -45,7 +45,11 @@
     <p>
       Shared by
       <%= render "application/avatar", user: @recipe.user %>
-      <%= @recipe.user.nickname %> (<%= @recipe.created_at %>)
+      <%= @recipe.user.nickname %>
+      <% if @recipe.user.new_to_site? %>
+        <span class="badge rounded-pill bg-success">New user</span>
+      <% end %>
+      (<%= @recipe.created_at %>)
     </p>
   </div>
 
