@@ -15,6 +15,10 @@ class User < ApplicationRecord
   before_validation :set_api_token, on: :create
   before_create :set_avatar
 
+  def new_to_site?
+    created_at > 1.month.ago
+  end
+
   private
 
   def set_api_token
