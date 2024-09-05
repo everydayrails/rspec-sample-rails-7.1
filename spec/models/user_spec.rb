@@ -44,7 +44,7 @@ RSpec.describe User, type: :model do
   it "sets a new user's API token"
 
   it "indicates a new user" do
-    user = User.new(created_at: Time.now)
+    user = FactoryBot.build(:user, created_at: Time.now)
 
     expect(user).to be_new_to_site
   end
