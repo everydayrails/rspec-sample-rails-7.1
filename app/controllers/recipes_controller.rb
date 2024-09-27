@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-  before_action :require_login, except: %i[ index show ]
+  before_action :require_login
   before_action :set_recipe, except: %i[ index show new create ]
 
   # GET /recipes or /recipes.json
