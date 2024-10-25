@@ -44,6 +44,20 @@ RSpec.describe "Recipes", type: :request do
 
         expect(response).to redirect_to recipe_path(user.recipes.last)
       end
+
+      it "fails to create a recipe with invalid attributes" do
+        user = FactoryBot.create(:user)
+        recipe = FactoryBot.create(:recipe, user: user, name: "Old name")
+        recipe_attributes = FactoryBot.attributes_for(:recipe, :invalid,
+          category_id: FactoryBot.create(:category).id
+        )
+
+        expect {
+          post recipes_path(as: user),
+            params: { recipe: recipe_attributes }
+        }.to_not change(Recipe, :count)
+        expect(response).to be_unprocessable
+      end
     end
   end
 

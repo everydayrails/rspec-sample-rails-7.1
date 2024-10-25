@@ -4,5 +4,9 @@ FactoryBot.define do
     description { "A great-tasting dish!" }
     association :category
     association :user
+
+    trait :invalid do
+      name { nil }
+    end
   end
 end
