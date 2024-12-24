@@ -13,7 +13,7 @@
 
     <%= simple_format @recipe.description %>
 
-    <div class="d-inline-flex gap-1 mb-3">
+    <div class="d-inline-flex gap-1 mt-3 mb-3">
       <% if @recipe.created_by?(current_user) %>
         <%= link_to "Edit", edit_recipe_path(@recipe), class: "btn btn-primary" %>
         <%= button_to "Delete", @recipe, method: :delete, class: "btn btn-light" %>
