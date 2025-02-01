@@ -1,23 +1,23 @@
 require 'rails_helper'
 
 RSpec.describe Recipe, type: :model do
-  let(:user) {
-    User.create(
+  before do
+    @user = User.create(
       nickname: "test-user",
-      email: "test-user@example.com",
-      password: "password"
+      email:      "test-user@example.com",
+      password:   "password"
     )
-  }
 
-  let (:category) { Category.create(name: "Test Category") }
+    @category = Category.create(name: "Test Category")
+  end
 
   it "does not allow duplicate recipe names per user" do
-    user.recipes.create(
+    @user.recipes.create(
       name: "Test Recipe",
-      category: category
+      category: @category
     )
 
-    second_recipe = user.recipes.build(
+    second_recipe = @user.recipes.build(
       name: "Test Recipe",
     )
 
@@ -32,40 +32,38 @@ RSpec.describe Recipe, type: :model do
       password:   "password"
     )
 
-    user.recipes.create(
+    @user.recipes.create(
       name: "Test Recipe",
-      category: category
+      category: @category
     )
 
     second_recipe = other_user.recipes.build(
       name: "Test Recipe",
-      category: category
+      category: @category
     )
 
     expect(second_recipe).to be_valid
   end
 
   describe "scope by_word_in_name" do
-    let(:first_recipe) {
-      user.recipes.create(
+    before do
+      @first_recipe = @user.recipes.create(
         name: "Pepperoni Pizza",
-        category: category
+        category: @category
       )
-    }
 
-    let(:second_recipe) {
-      user.recipes.create(
+      @second_recipe = @user.recipes.create(
         name: "Cheese Pizza",
-        category: category
+        category: @category
       )
-    }
+    end
 
     context "when a match is found" do
       it "returns matching recipes" do
         results = Recipe.by_word_in_name("pepperoni")
 
-        expect(results).to include(first_recipe)
-        expect(results).to_not include(second_recipe)
+        expect(results).to include(@first_recipe)
+        expect(results).to_not include(@second_recipe)
       end
     end
 
