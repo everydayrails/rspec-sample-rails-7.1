@@ -1,9 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
+  let(:user) { FactoryBot.create(:user) }
+  let(:recipe) { FactoryBot.create(:recipe) }
+
   it "is valid with a user, recipe, and comment" do
-    user = FactoryBot.create(:user)
-    recipe = FactoryBot.create(:recipe)
     comment = Comment.new(
       user: user,
       recipe: recipe,
@@ -13,8 +14,6 @@ RSpec.describe Comment, type: :model do
   end
 
   it "requires a comment to have at least one character" do
-    user = FactoryBot.create(:user)
-    recipe = FactoryBot.create(:recipe)
     comment = Comment.new(
       user: user,
       recipe: recipe,
@@ -25,8 +24,6 @@ RSpec.describe Comment, type: :model do
   end
 
   it "prohibits lengthy comments" do
-    user = FactoryBot.create(:user)
-    recipe = FactoryBot.create(:recipe)
     comment = Comment.new(
       user: user,
       recipe: recipe,
