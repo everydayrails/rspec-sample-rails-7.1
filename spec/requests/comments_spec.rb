@@ -11,7 +11,7 @@ RSpec.describe "Comments", type: :request do
             params: { comment: { comment: "Test comment" } }
         }.to_not change(Comment, :count)
 
-        expect(response).to redirect_to sign_in_path
+        expect(response).to require_login
       end
     end
 

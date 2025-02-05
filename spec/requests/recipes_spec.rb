@@ -6,7 +6,7 @@ RSpec.describe "Recipes", type: :request do
       it "redirects to sign-in" do
         get recipes_path
 
-        expect(response).to redirect_to sign_in_path
+        expect(response).to require_login
       end
     end
 
@@ -28,7 +28,7 @@ RSpec.describe "Recipes", type: :request do
 
         post recipes_path params: { recipe: recipe_attributes }
 
-        expect(response).to redirect_to sign_in_path
+        expect(response).to require_login
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe "Recipes", type: :request do
 
         get edit_recipe_path(recipe)
 
-        expect(response).to redirect_to sign_in_path
+        expect(response).to require_login
       end
     end
 
@@ -107,7 +107,7 @@ RSpec.describe "Recipes", type: :request do
         patch recipe_path(recipe),
           params: { recipe: recipe_attributes }
 
-        expect(response).to redirect_to sign_in_path
+        expect(response).to require_login
         expect(recipe.reload.name).to eq "Old name"
       end
     end
@@ -156,7 +156,7 @@ RSpec.describe "Recipes", type: :request do
           delete recipe_path(recipe)
         }.to_not change(Recipe, :count)
 
-        expect(response).to redirect_to sign_in_path
+        expect(response).to require_login
       end
     end
 
