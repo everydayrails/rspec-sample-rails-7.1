@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "Comments", type: :request do
-  let(:user) { FactoryBot.create(:user) }
-  let(:recipe) { FactoryBot.create(:recipe) }
+  include_context "recipe setup"
 
   describe "POST /create" do
     context "as a guest" do
