@@ -80,7 +80,11 @@ RSpec.describe User, type: :model do
   end
 
   it "sets an avatar" do
-    user = FactoryBot.build(:user, nickname: "test_user")
+    user = User.new(
+      email: "test@example.com",
+      password: "password",
+      nickname: "test_user"
+    )
 
     mock_io = StringIO.new("fake image data")
     allow(URI).to receive(:open)

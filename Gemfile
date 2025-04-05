@@ -73,3 +73,6 @@ gem "commonmarker", "~> 1.1"
 gem "rspec-rails", "~> 6.1.2", :groups => [:development, :test]
 
 gem "factory_bot_rails", "~> 6.4.3", :groups => [:development, :test]
+
+gem "vcr", "~> 6.3", :groups => [:test]
+gem "webmock", "~> 3.25", :groups => [:test]
