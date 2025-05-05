@@ -47,4 +47,30 @@ RSpec.describe Recipe, type: :model do
       end
     end
   end
+
+  describe "#photo_url" do
+    context "when photo is attached" do
+      it "sets photo url" do
+        file = fixture_file_upload(
+          Rails.root.join("spec", "fixtures", "recipe.jpg"),
+          "image/jpeg"
+        )
+
+        recipe = Recipe.new
+        recipe.photo.attach(file)
+
+        expect(recipe.photo).to be_attached
+        expect(recipe.photo_url).to eq(recipe.photo)
+      end
+    end
+
+    context "when no photo provided" do
+      it "sets a default photo_url" do
+        recipe = Recipe.new
+
+        expect(recipe.photo).to_not be_attached
+        expect(recipe.photo_url).to eq("recipe-placeholder.png")
+      end
+    end
+  end
 end

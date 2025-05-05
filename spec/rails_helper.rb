@@ -62,4 +62,11 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  config.after(:suite) do
+    dir = ActiveStorage::Blob.services.fetch(:test).root
+    FileUtils.rm_rf(dir)
+    FileUtils.mkdir_p(dir)
+    FileUtils.touch(File.join(dir, ".keep"))
+  end
 end

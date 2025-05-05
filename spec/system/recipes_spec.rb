@@ -18,6 +18,7 @@ RSpec.describe "Recipes", type: :system do
     fill_in "Description", with: "A delicious pie made with apples"
     fill_in "Ingredients", with: "- 1 cup of flour\n- 1 cup of sugar\n- 1 cup of apples"
     fill_in "Instructions", with: "1. Mix the ingredients\n2. Bake at 350 degrees for 30 minutes"
+    attach_file "Photo", Rails.root.join("spec", "fixtures", "recipe.jpg")
     click_button "Create Recipe"
 
     aggregate_failures do
@@ -28,6 +29,7 @@ RSpec.describe "Recipes", type: :system do
       expect(page).to have_content "1 cup of flour 1 cup of sugar 1 cup of apples"
       expect(page).to have_content "Mix the ingredients Bake at 350 degrees for 30 minutes"
       expect(page).to have_content "Shared by #{user.nickname}"
+      expect(page.find("img.img-fluid")[:src]).to include "recipe.jpg"
     end
   end
 end
