@@ -1,0 +1,13 @@
+<h1>Latest recipes from Taste Driven Dishes</h1>
+
+<p>
+    Hi <%= @user.nickname %>! Here are some new recipes
+    you may have missed.
+</p>
+
+<% @recipes.each do |recipe| %>
+  <div>
+    <h2><%= link_to recipe.name, recipe %></h2>
+    <%= recipe.description %>
+  </div>
+<% end %>
