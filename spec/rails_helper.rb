@@ -70,3 +70,5 @@ RSpec.configure do |config|
     FileUtils.touch(File.join(dir, ".keep"))
   end
 end
+
+Rails.application.routes.default_url_options[:host] = "example.com"
