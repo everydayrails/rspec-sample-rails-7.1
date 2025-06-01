@@ -35,3 +35,6 @@
 /config/master.key
 .aider*
 .env
+
+# Ignore coverage output.
+/coverage/*
