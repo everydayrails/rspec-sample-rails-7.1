@@ -13,6 +13,12 @@ class Recipe < ApplicationRecord
     where("name LIKE ?", "%#{query}%") if query.present?
   }
 
+  scope :by_popularity, ->() {
+    left_joins(:favorites)
+      .group(:id)
+      .order("COUNT(favorites.id) DESC")
+  }
+
   def created_by?(user)
     self.user == user
   end

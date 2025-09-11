@@ -1,6 +1,6 @@
 class RecipesController < ApplicationController
   before_action :require_login
-  before_action :set_recipe, except: %i[ index show new create ]
+  before_action :set_recipe, except: %i[ index show new create popular ]
 
   # GET /recipes or /recipes.json
   def index
@@ -57,6 +57,10 @@ class RecipesController < ApplicationController
       format.html { redirect_to recipes_url, notice: "Recipe was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def popular
+    @recipes = Recipe.by_popularity
   end
 
   private

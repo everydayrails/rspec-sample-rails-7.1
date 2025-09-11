@@ -10,6 +10,9 @@
           <%= link_to "All recipes", recipes_path, class: "nav-link" %>
         </li>
         <li class="nav-item">
+          <%= link_to "Popular", popular_recipes_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
           <%= form_tag recipes_path, method: "get", class: "d-flex", role: "search", id: "search" do %>
             <%= text_field_tag :query, params[:query], class: "form-control me-2", type: "search", placeholder: "Search" %>
             <%= submit_tag "Search", name: nil, class: "d-none btn btn-outline-success" %>

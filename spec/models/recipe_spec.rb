@@ -48,6 +48,24 @@ RSpec.describe Recipe, type: :model do
     end
   end
 
+  describe "scope by_popularity" do
+    it "returns collection of recipes by order of favorites" do
+      recipe1 = FactoryBot.create(:recipe)
+      recipe2 = FactoryBot.create(:recipe)
+      recipe3 = FactoryBot.create(:recipe)
+
+      3.times do
+        FactoryBot.create(:favorite, recipe: recipe3)
+      end
+
+      2.times do
+        FactoryBot.create(:favorite, recipe: recipe1)
+      end
+
+      expect(Recipe.by_popularity).to eq [recipe3, recipe1, recipe2]
+    end
+  end
+
   describe "#photo_url" do
     context "when photo is attached" do
       it "sets photo url" do
