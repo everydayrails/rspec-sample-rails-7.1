@@ -1,7 +1,9 @@
-<% if signed_in? %>
-  <% if favorite = current_user.favorites.find_by(recipe: recipe) %>
-    <%= render "destroy_favorite_button", recipe: recipe %>
-  <% else %>
-    <%= render "new_favorite_button", recipe: recipe %>
+<%= turbo_frame_tag dom_id(recipe, :favorite) do %>
+  <% if signed_in? %>
+    <% if favorite = current_user.favorites.find_by(recipe: recipe) %>
+      <%= render "recipes/destroy_favorite_button", recipe: recipe, favorite: favorite %>
+    <% else %>
+      <%= render "recipes/new_favorite_button", recipe: recipe %>
+    <% end %>
   <% end %>
 <% end %>

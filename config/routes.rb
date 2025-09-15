@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :recipes do
     resources :favorites, only: %i[ create destroy ]
     resources :comments, only: %i[ create ]
+    get :popular, on: :collection
   end
 
   resource :profile do
@@ -32,5 +33,5 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Defines the root path route ("/")
-  root "recipes#index"
+  root "home#index"
 end

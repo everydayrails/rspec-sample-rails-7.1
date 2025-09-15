@@ -7,7 +7,16 @@
     <div class="collapse navbar-collapse" id="navbarColor01">
       <ul class="navbar-nav me-auto">
         <li class="nav-item">
-          <%= link_to "All recipes", root_path, class: "nav-link" %>
+          <%= link_to "All recipes", recipes_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Popular", popular_recipes_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+          <%= form_tag recipes_path, method: "get", class: "d-flex", role: "search", id: "search" do %>
+            <%= text_field_tag :query, params[:query], class: "form-control me-2", type: "search", placeholder: "Search" %>
+            <%= submit_tag "Search", name: nil, class: "d-none btn btn-outline-success" %>
+          <% end %>
         </li>
         <% if signed_in? %>
           <li class="nav-item">
@@ -30,7 +39,7 @@
       <ul class="navbar-nav navbar-right">
         <% if signed_in? %>
           <li class="nav-item">
-            <%= link_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
+            <%= button_to "Sign out", sign_out_path, method: :delete, class: "nav-link" %>
           </li>
         <% else %>
           <li class="nav-item">
